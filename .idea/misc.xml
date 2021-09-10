@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/HP/Desktop/PlanTry/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/HP/Desktop/PlanTry/app/src/main/res/layout/activity_dashboard.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/HP/Desktop/PlanTry/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_main.xml" value="0.215625" />
       </map>
     </option>
