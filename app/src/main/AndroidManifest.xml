@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlanTry">
         <activity
+            android:name=".SignUp"
+            android:exported="true" />
+        <activity
+            android:name=".Login"
+            android:exported="true" />
+        <activity
             android:name=".Dashboard"
             android:exported="true" />
         <activity
