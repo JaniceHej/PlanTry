@@ -28,4 +28,4 @@
 * Recipes Recommendation
  
 ## Prototype:
-(in progress)
+https://www.figma.com/file/MBX8fVfUYa6WxFLeaMA7sm/PlanTry?node-id=0%3A1
