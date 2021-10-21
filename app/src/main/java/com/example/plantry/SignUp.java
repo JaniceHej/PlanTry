@@ -124,7 +124,10 @@ public class SignUp extends AppCompatActivity {
     }
 
     //Save data in Firebase on button click
+
     public void registerUser(View view) {
+        rootNode=FirebaseDatabase.getInstance();
+        reference=rootNode.getReference("users");
          if (!validateName() | !validateUsername() | !validateEmail()| !validatePhoneNo()| !validatePassword()){
              return;
          }
@@ -137,6 +140,7 @@ public class SignUp extends AppCompatActivity {
         String password = regPassword.getEditText().getText().toString();
 
         UserHelperClass helperClass = new UserHelperClass(name, username, email, phoneNo, password);
+        //reference.setValue(helperClass);
         reference.child(username).setValue(helperClass);
     }
 
