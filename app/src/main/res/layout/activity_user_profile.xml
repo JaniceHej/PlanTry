@@ -25,25 +25,28 @@
                 android:src="@drawable/logoss" />
 
             <TextView
-                android:id="@+id/full_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/profile_image"
+                android:id="@+id/full_name_field_profile"
                 android:fontFamily="@font/bangers"
                 android:includeFontPadding="false"
                 android:text="Sathwika"
+
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/full_name"
+                android:layout_below="@+id/full_name_field_profile"
                 android:layout_marginLeft="10dp"
+                android:id="@+id/username_field_profile"
+                android:text="sathwika05"
                 android:layout_toRightOf="@+id/profile_image"
                 android:includeFontPadding="false"
-                android:text="sathwika_05"
+
                 android:textSize="14sp" />
         </RelativeLayout>
 
@@ -60,27 +63,32 @@
                 android:layout_marginBottom="10dp"
                 android:hint="Full Name">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/full_name_profile"
                     android:drawableLeft="@drawable/username_icon_small"
                     android:drawablePadding="10dp"
-                    android:text="Sathwika" />
+                    android:text="Sathwika"
+
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
-
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:hint="E-Mail">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/email_profile"
                     android:drawableLeft="@drawable/mail_small"
                     android:drawablePadding="10dp"
-                    android:text="sathwika05@gmail.com" />
+                    android:text="sathwika@gmail.com"
+
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,12 +98,15 @@
                 android:layout_marginBottom="10dp"
                 android:hint="Phone Number">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/phone_no_profile"
                     android:drawableLeft="@drawable/phone_small"
                     android:drawablePadding="10dp"
-                    android:text="+1-123-45678" />
+                    android:text="193567890"
+
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,12 +116,14 @@
                 android:layout_marginBottom="10dp"
                 android:hint="Password">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/password_profile"
                     android:drawableLeft="@drawable/eye_small"
                     android:drawablePadding="10dp"
-                    android:text="sath123" />
+                    android:text="sath@12"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
