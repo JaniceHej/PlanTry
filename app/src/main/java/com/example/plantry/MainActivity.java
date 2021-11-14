@@ -9,22 +9,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.plantry.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
      private static int SPLASH_SCREEN=5000;
     //Variables
     Animation topAnim,bottomAnim;
     ImageView image;
-    TextView logo,slogan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

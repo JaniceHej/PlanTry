@@ -25,12 +25,12 @@
                 android:src="@drawable/logoss" />
 
             <TextView
+                android:id="@+id/full_name_field_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/profile_image"
-                android:id="@+id/full_name_field_profile"
                 android:fontFamily="@font/bangers"
                 android:includeFontPadding="false"
                 android:text="Sathwika"
@@ -38,14 +38,14 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/username_field_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/full_name_field_profile"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/username_field_profile"
-                android:text="sathwika05"
                 android:layout_toRightOf="@+id/profile_image"
                 android:includeFontPadding="false"
+                android:text="sathwika05"
 
                 android:textSize="14sp" />
         </RelativeLayout>
