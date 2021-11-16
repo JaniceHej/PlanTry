@@ -1,19 +1,26 @@
 package com.example.plantry;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUp extends AppCompatActivity {
     //Variables
     TextInputLayout regEmail, regPassword;
     AppCompatButton nextBtn, regToLoginBtn;
-
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,69 +31,38 @@ public class SignUp extends AppCompatActivity {
         regPassword = findViewById(R.id.password);
         nextBtn = findViewById(R.id.next_btn);
         regToLoginBtn = findViewById(R.id.reg_login_btn);
+        mAuth = FirebaseAuth.getInstance();
+        nextBtn.setOnClickListener(view -> {
+            createUser();
+        });
         regToLoginBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Login.class);
-            startActivity(intent);
+         startActivity(new Intent(SignUp.this,Login.class));
         });
     }
+    private void createUser(){
+        String email=regEmail.getEditText().getText().toString();
+        String password=regPassword.getEditText().getText().toString();
+        if (TextUtils.isEmpty(email)){
+            regEmail.setError("Email cannot be empty");
+            regEmail.requestFocus();
+        }else if(TextUtils.isEmpty(password)){
+            regPassword.setError("Password cannot be empty");
+            regPassword.requestFocus();
 
-    private Boolean validateEmail() {
-        String val = regEmail.getEditText().getText().toString();
-        String emailPattern="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        if (val.isEmpty()) {
-            regEmail.setError("Field cannot be empty");
-            return false;
         }
-        else if(!val.matches(emailPattern)){
-            regEmail.setError("Invalid email address");
-            return false;
+        else{
+            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(SignUp.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                         startActivity(new Intent(SignUp.this,Login.class));
+                    }else{
+                        Toast.makeText(SignUp.this, "Registration Error"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
-        else {
-            regEmail.setError(null);
-            regEmail.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    private Boolean validatePassword() {
-        String val = regPassword.getEditText().getText().toString();
-        String passwordVal="^"+
-                //"(?=.*[0-9])"+ // at least 1 digit
-                //"(?=.*[a-z])"+  // at least 1 lower case letter
-                //"(?=.*[A-Z])"+   // at least 1 upper case letter
-               "(?=.*[a-zA-Z])"+   // any letter
-                "(?=.*[@#$%^&+=])" + // at least 1 special character
-                "(?=\\S+$)" + // no white spaces
-                ".{4,}"+    // at 4 least  characters
-                "$" ;
-        if (val.isEmpty()) {
-            regPassword.setError("Field cannot be empty");
-            return false;
-        }
-        else if(!val.matches(passwordVal)){
-            regPassword.setError("Password is too weak");
-            return false;
-        }
-        else {
-            regPassword.setError(null);
-            regPassword.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    // prompt user to next view (input username)
-    public void registerUserEmailPass(View view) {
-        if (!validateEmail() | !validatePassword()){
-            return;
-        }
-
-        //Get all the values in String
-        String email = regEmail.getEditText().getText().toString();
-        String password = regPassword.getEditText().getText().toString();
-
-        Intent intent = new Intent(getApplicationContext(), SignUp_2.class);
-        intent.putExtra("email", email);
-        intent.putExtra("password", password);
-        startActivity(intent);
     }
 }
+

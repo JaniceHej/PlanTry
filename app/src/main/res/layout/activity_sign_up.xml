@@ -71,7 +71,6 @@
                 android:layout_marginTop="63dp"
                 android:layout_marginBottom="5dp"
                 android:background="#133B12"
-                android:onClick="registerUserEmailPass"
                 android:text="@string/next"
                 android:textColor="#fff" />
 

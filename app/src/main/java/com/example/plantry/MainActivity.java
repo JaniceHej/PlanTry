@@ -6,16 +6,21 @@ import android.os.Handler;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
      private static int SPLASH_SCREEN=5000;
     //Variables
     Animation topAnim,bottomAnim;
     ImageView image;
+    Button btnLogout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         image=findViewById(R.id.imageView);
         image.setAnimation(topAnim);
         image.setAnimation(bottomAnim);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -37,5 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         },SPLASH_SCREEN);
+    }
+    public void onStart() {
+
+        super.onStart();
     }
 }

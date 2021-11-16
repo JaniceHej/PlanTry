@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/log_username"
-                android:hint="@string/username"
+                android:hint="@string/email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -79,7 +79,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/log_in"
                 android:id="@+id/login_go_btn"
-                android:onClick="loginUser"
                 android:background="#133B12"
                 android:textColor="#fff"
                 android:layout_marginTop="5dp"

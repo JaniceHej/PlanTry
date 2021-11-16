@@ -5,10 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,107 +23,49 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
-    Button callSignUp;
-    TextInputLayout username, password;
-
+    Button callSignUp,btnLogin;
+    TextInputLayout email, password;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
         callSignUp = findViewById(R.id.signup_screen);
-        username=findViewById(R.id.log_username);
-        password=findViewById(R.id.log_password);
-        callSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Login.this, SignUp.class);
-                startActivity(intent);
-            }
-        });
+        btnLogin = findViewById(R.id.login_go_btn);
+        email = findViewById(R.id.log_username);
+        password = findViewById(R.id.log_password);
+        mAuth= FirebaseAuth.getInstance();
+    btnLogin.setOnClickListener(view->{
+        loginUser();
+    });
+    callSignUp.setOnClickListener(view ->{
+        startActivity(new Intent(Login.this,SignUp.class));
+    });
     }
+    private void loginUser(){
+        String lemail=email.getEditText().getText().toString();
+        String lpassword=password.getEditText().getText().toString();
+        if (TextUtils.isEmpty(lemail)){
+            email.setError("Email cannot be empty");
+            email.requestFocus();
+        }else if(TextUtils.isEmpty(lpassword)){
+            password.setError("Password cannot be empty");
+            password.requestFocus();
 
-    private Boolean validateUsername() {
-        String val = username.getEditText().getText().toString();
-        if (val.isEmpty()) {
-            username.setError("Field cannot be empty");
-            return false;
-        } else {
-            username.setError(null);
-            username.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    private Boolean validatePassword() {
-        String val = password.getEditText().getText().toString();
-        if (val.isEmpty()) {
-            password.setError("Field cannot be empty");
-            return false;
-        } else {
-            password.setError(null);
-            password.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    public void loginUser(View view) {
-        //Validate Login Info
-        if (!validateUsername() | !validatePassword()) {
-            return;
-        } else {
-            isUser();
-            ///Intent intent = new Intent(getApplicationContext(), UserProfile.class);
-            //startActivity(intent);
-        }
-    }
-
-    private void isUser() {
-        final String userEnteredUsername = username.getEditText().getText().toString().trim();
-        final String userEnteredPassword = password.getEditText().getText().toString().trim();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUser = reference.orderByChild("username").equalTo(userEnteredUsername);
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    username.setError(null);
-                    username.setErrorEnabled(false);
-                    String passwordFromDB = dataSnapshot.child(userEnteredUsername).child("password").getValue(String.class);
-                    if (passwordFromDB.equals(userEnteredPassword)) {
-                        username.setError(null);
-                        username.setErrorEnabled(false);
-//                        String nameFromDB = dataSnapshot.child(userEnteredUsername).child("name").getValue(String.class);
-                        String usernameFromDB = dataSnapshot.child(userEnteredUsername).child("username").getValue(String.class);
-//                        String phoneNoFromDB = dataSnapshot.child(userEnteredUsername).child("phoneNo").getValue(String.class);
-                        String emailFromDB = dataSnapshot.child(userEnteredUsername).child("email").getValue(String.class);
-                        Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
-//                        intent.putExtra("name", nameFromDB);
-                        intent.putExtra("username", usernameFromDB);
-                        intent.putExtra("email", emailFromDB);
-//                        intent.putExtra("phoneNo", phoneNoFromDB);
-                        intent.putExtra("password", passwordFromDB);
-                        startActivity(intent);
-                    }
-                    else {
-                        //progressBar.setVisibility(View.GONE);
-                        password.setError("Wrong Password");
-                        password.requestFocus();
+        }else{
+            mAuth.signInWithEmailAndPassword(lemail,lpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+               if(task.isSuccessful()){
+                   Toast.makeText(Login.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+                   startActivity(new Intent(Login.this,WelcomeScreen.class));
+               }else{
+                        Toast.makeText(Login.this, "Login Error"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                else {
-                        //progressBar.setVisibility(View.GONE);
-                        username.setError("No such User exist");
-                        username.requestFocus();
-                    }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-
-        });
+            });
+        }
     }
-}
+    }
+
