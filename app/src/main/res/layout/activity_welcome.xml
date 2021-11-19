@@ -21,7 +21,7 @@
 
     <!--Display User Name-->
     <TextView
-        android:id="@+id/lbl_username"
+        android:id="@+id/lbl_displayName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5sp"

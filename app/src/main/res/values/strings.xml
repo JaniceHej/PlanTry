@@ -22,5 +22,7 @@
     <string name="find_recipes">Find Recipes</string>
     <string name="log_out">Log out</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="change_my_password">Change my password</string>
+    <string name="contact_us"><i>To contact us, click here</i></string>
 </resources>
 

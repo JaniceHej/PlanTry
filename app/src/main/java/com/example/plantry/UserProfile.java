@@ -1,50 +1,55 @@
 package com.example.plantry;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 public class UserProfile extends AppCompatActivity {
-    TextInputLayout fullName_p,email_p,phoneNo_p,password_p;
-    TextView fullNameLabel_p,usernameLabel_p;
+    TextView displayNameHead, displayNameLbl, emailLbl, locationLbl;
+    AppCompatButton logOut;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_profile);
 
-        fullName_p = findViewById(R.id.full_name_profile);
-        email_p = findViewById(R.id.email_profile);
-        phoneNo_p =  findViewById(R.id.phone_no_profile);
-        password_p = findViewById(R.id.password_profile);
-        fullNameLabel_p = findViewById(R.id.full_name_field_profile);
-        usernameLabel_p = findViewById(R.id.username_field_profile);
+        displayNameHead = findViewById(R.id.displayName);
+        displayNameLbl = findViewById(R.id.dash_displayName);
+        emailLbl = findViewById(R.id.dash_email);
+        locationLbl = findViewById(R.id.dash_location);
+        logOut = findViewById(R.id.log_out);
+        logOut.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        });
 
         //ShowAllData
-        showAllUserData();
-
+        displayUserData();
     }
 
-    private void showAllUserData() {
-        Intent intent=getIntent();
-        String user_username=intent.getStringExtra("username");
-        String user_name=intent.getStringExtra("name");
-        String user_email=intent.getStringExtra("email");
-        String user_phoneNo=intent.getStringExtra("phoneNo");
-        String user_password=intent.getStringExtra("password");
-        Toast.makeText(this, "name"+user_name, Toast.LENGTH_SHORT).show();
-        fullNameLabel_p.setText(user_name);
-        usernameLabel_p.setText(user_username);
-        email_p.getEditText().setText(user_email);
-        fullName_p.getEditText().setText(user_name);
-        phoneNo_p.getEditText().setText(user_phoneNo);
-        password_p.getEditText().setText(user_password);
+    private void displayUserData() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                // Name, email address
+                String displayName = profile.getDisplayName();
+                String email = profile.getEmail();
+                // TODO: get user's location
 
-
+                displayNameHead.setText(displayName + "'s");
+                displayNameLbl.setText(displayName);
+                emailLbl.setText(email);
+                // TODO: set location label
+            }
+        }
     }
+
+    // TODO: contact us
 }

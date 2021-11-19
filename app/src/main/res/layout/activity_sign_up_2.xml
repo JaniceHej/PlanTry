@@ -68,7 +68,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:background="#133B12"
-            android:onClick="registerUser"
             android:text="@string/sign_up"
             android:textColor="#fff" />
 

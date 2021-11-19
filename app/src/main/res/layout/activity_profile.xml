@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserProfile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:padding="30dp">
+
+            <TextView
+                android:id="@+id/displayName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/work_sans"
+                android:text="SampleUser's"
+                android:textColor="#1C0F13"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/displayName"
+                android:fontFamily="@font/work_sans"
+                android:text="Household"
+                android:textSize="32sp" />
+
+            <!--TODO: Scrolling users bar-->
+
+            <!-- add household user button -->
+            <ImageView
+                android:id="@+id/add_household"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="191dp"
+                android:layout_marginTop="52dp"
+                android:src="@drawable/invite" />
+
+            <!-- edit household user button -->
+            <ImageView
+                android:id="@+id/edit_household"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="213dp"
+                android:layout_marginTop="52dp"
+                android:src="@drawable/edit" />
+        </RelativeLayout>
+
+        <!-- User's Details -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="0dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="0dp">
+
+            <!-- Display Name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/work_sans"
+                android:text="Display Name:"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/dash_displayName"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:background="#C4C4C4"
+                android:fontFamily="@font/work_sans"
+                android:paddingStart="10sp"
+                android:gravity="center_vertical"
+                android:text="sample"
+                android:textSize="19sp" />
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/work_sans"
+                android:text="Email:"
+                android:textSize="16sp"
+                android:layout_marginTop="5sp"/>
+            <TextView
+                android:id="@+id/dash_email"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:background="#C4C4C4"
+                android:fontFamily="@font/work_sans"
+                android:paddingStart="10sp"
+                android:gravity="center_vertical"
+                android:text="sample@plantry.com"
+                android:textSize="19sp" />
+
+            <!-- Location -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/work_sans"
+                android:text="Location:"
+                android:textSize="16sp"
+                android:layout_marginTop="5sp"/>
+            <TextView
+                android:id="@+id/dash_location"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:background="#C4C4C4"
+                android:fontFamily="@font/work_sans"
+                android:paddingStart="10sp"
+                android:gravity="center_vertical"
+                android:text="sample location"
+                android:textSize="19sp" />
+
+            <!--Change Password Button-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/change_my_password"
+                android:id="@+id/change_pw"
+                android:background="#133B12"
+                android:textColor="#fff"
+                android:layout_marginStart="52dp"
+                android:layout_marginEnd="52dp"
+                android:layout_marginTop="20dp" />
+
+            <!--Log out-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/log_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:textColor="#C4C4C4"
+                android:textAllCaps="false"
+                android:fontFamily="@font/work_sans_semibold"
+                android:text="@string/log_out"
+                android:textSize="15sp"/>
+
+            <!--Contact us-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="21dp"
+                android:background="#00000000"
+                android:textColor="#FF3939"
+                android:textAllCaps="false"
+                android:fontFamily="@font/work_sans"
+                android:text="@string/contact_us"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- TODO: Bottom nav bar -->
+
+</ScrollView>
+
