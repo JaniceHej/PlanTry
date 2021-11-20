@@ -15,12 +15,27 @@
         <entry key="..\:/Users/HP/Desktop/PlanTry/app/src/main/res/layout/fragment_dashboard.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/HP/Desktop/PlanTry/app/src/main/res/layout/fragment_home.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/HP/Desktop/PlanTry/app/src/main/res/layout/fragment_notifications.xml" value="0.22916666666666666" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable-anydpi/ic_list.xml" value="0.5661458333333333" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable-anydpi/ic_recipes.xml" value="0.3703125" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/btm_nav.xml" value="0.5661458333333333" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/btm_nav_complete.xml" value="0.5661458333333333" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/button.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/dash_nav.xml" value="0.3703125" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/edit.xml" value="0.3697916666666667" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/ic_launcher.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/ic_nav_list.xml" value="0.5661458333333333" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/ic_nav_maps.xml" value="0.3703125" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/ic_nav_notification.xml" value="0.5661458333333333" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/ic_nav_recipe.xml" value="0.3703125" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/invite.xml" value="0.3697916666666667" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/iv_nav_list.xml" value="0.3703125" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/navic_notification.xml" value="0.3703125" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/new_user.xml" value="0.45" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/sample_image.xml" value="0.36018518518518516" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/shopping_list_btn.xml" value="0.3703125" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/union.xml" value="0.24739583333333334" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/drawable/users.xml" value="0.45" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/font/antic.xml" value="0.5802083333333333" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/font/bangers.xml" value="0.5802083333333333" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout-v31/activity_user_profile.xml" value="0.25" />
@@ -28,7 +43,7 @@
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_main.xml" value="0.215625" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_maps.xml" value="0.2" />
-        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_profile.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_profile.xml" value="0.33" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_sign_up_2.xml" value="0.1" />
         <entry key="..\:/Users/JaniceJ/Documents/WSU/Fall 2021/CEG7370 Distributed Computing/PlanTry/app/src/main/res/layout/activity_sign_up_old.xml" value="0.33" />

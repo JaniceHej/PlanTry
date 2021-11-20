@@ -12,12 +12,19 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class SignUp_2 extends AppCompatActivity {
     //Variables
     TextInputLayout regDispName;
     AppCompatButton regBtn, regToLoginBtn;
     FirebaseAuth mAuth;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference householdDB = database.getReference().child("household");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +84,26 @@ public class SignUp_2 extends AppCompatActivity {
             if(task.isSuccessful()){
                 // Sign in success, update UI with the signed-in user's information
                 Log.d(TAG, "createUserWithEmail:success");
+
                 FirebaseUser user = mAuth.getCurrentUser();
 
                 // Sign in success, update UI with the signed-in user's information
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setDisplayName(displayName)
                         .build();
-
                 user.updateProfile(profileUpdates)
                         .addOnCompleteListener(task1 -> {
                             if (task1.isSuccessful()) {
                                 Log.d(TAG, "User profile updated.");
                             }
                         });
+
+                // Create a new householdDB (unique key) with uid
+                // new household will be created upon each registration
+   //           householdDB.push().child("ownerUid").setValue(user.getUid());
+                Household newHousehold = new Household();
+                newHousehold.setOwnerUid(user.getUid());
+                householdDB.push().setValue(newHousehold);
 
                 Toast.makeText(SignUp_2.this, "Registration successful. Enjoy PlanTry!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(SignUp_2.this,WelcomeScreen.class));
