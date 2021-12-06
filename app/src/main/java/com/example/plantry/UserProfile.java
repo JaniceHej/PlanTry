@@ -1,18 +1,24 @@
 package com.example.plantry;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.Sampler;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -20,18 +26,24 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class UserProfile extends AppCompatActivity {
-    TextView displayNameHead, displayNameLbl, emailLbl, ownerLbl;
-    AppCompatButton changePw, logOut, contactUs;
-    ImageView addHousehold, editHousehold;
-    ArrayList<String> users;
+    TextView displayNameHead, displayNameLbl, emailLbl, ownerLbl, householdKey;
+    AppCompatButton changePw, logOut, contactUs, cancelReset, cancelJoin, joinHouseholdBtn;
+    ImageView addHousehold, editHousehold, joinHousehold;
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextInputLayout userEmail, householdKeyInput;
+    private AppCompatButton understand, resetPassword;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference householdDB = database.getReference().child("household");
+    private DatabaseReference userDB = database.getReference().child("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +51,22 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         addHousehold = findViewById(R.id.add_household);
+        addHousehold.setOnClickListener(view ->{
+            addHousehold();
+        });
         editHousehold = findViewById(R.id.edit_household);
+        joinHousehold = findViewById(R.id.join_household);
+        joinHousehold.setOnClickListener(view ->{
+            joinHousehold();
+        });
         displayNameHead = findViewById(R.id.displayName);
         displayNameLbl = findViewById(R.id.dash_displayName);
         emailLbl = findViewById(R.id.dash_email);
         ownerLbl = findViewById(R.id.dash_location);
         changePw = findViewById(R.id.change_pw);
-        // TODO: Password change page and functionality
+        changePw.setOnClickListener(view ->{
+            showResetPwPopup();
+        });
         logOut = findViewById(R.id.log_out);
         logOut.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -74,15 +95,13 @@ public class UserProfile extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             for (UserInfo profile : user.getProviderData()) {
-                householdDB.addValueEventListener(new ValueEventListener() {
+                userDB.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            if(dataSnapshot.child("ownerUid").getValue().equals(profile.getUid())){
-                                ownerLbl.setText(profile.getDisplayName());
-                            }else if(dataSnapshot.child("membersUid").getValue().equals(profile.getUid())){
-                                // TODO: set label for different household owner
-                                // get the ownerUid, look up displayName of ownerUid and setLabel
+                            if(dataSnapshot.child("email").getValue().equals(profile.getEmail())){
+                                String owner = dataSnapshot.child("householdOwner").getValue().toString();
+                                ownerLbl.setText(owner);
                             }else{
                                 Toast.makeText(UserProfile.this, "Database error, please contact us", Toast.LENGTH_LONG).show();
                             }
@@ -106,9 +125,143 @@ public class UserProfile extends AppCompatActivity {
         }
     }
 
-    // TODO: add household member
+    // add new household member by displaying unique household code for other member to join a household
     private void addHousehold(){
+        dialogBuilder = new AlertDialog.Builder((this));
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_addmember, null);
+        householdKey = contactPopupView.findViewById(R.id.householdKey);
+        understand = contactPopupView.findViewById(R.id.understand_btn);
 
+        dialogBuilder.setView(contactPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                householdDB.orderByChild("ownerUid").equalTo(profile.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot childSnapshot:snapshot.getChildren()){
+                            String key = childSnapshot.getKey();
+
+                            if(key == null){
+                                householdKey.setText("Please get the key from household owner");
+                            }else{
+                                householdKey.setText(key);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+                understand.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        }
+    }
+
+    // join a household
+    private void joinHousehold(){
+        dialogBuilder = new AlertDialog.Builder((this));
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_joinhousehold, null);
+        householdKeyInput = contactPopupView.findViewById(R.id.household_key_input);
+        joinHouseholdBtn = contactPopupView.findViewById(R.id.join_household_btn);
+        cancelJoin = contactPopupView.findViewById(R.id.cancel_btn);
+
+        dialogBuilder.setView(contactPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        joinHouseholdBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user != null){
+                    for (UserInfo profile : user.getProviderData()){
+                        householdDB.child(householdKeyInput.getEditText().getText().toString()).child("ownerEmail").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                try{
+                                    if(snapshot.getValue() != null){
+                                        try{
+                                            // get value of the key, where user email equal to profile email, update the household owner to new owner email
+                                            String ownerEmail = snapshot.getValue().toString();
+                                            userDB.orderByChild("email").equalTo(profile.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if(snapshot.exists()){
+                                                        for(DataSnapshot data : snapshot.getChildren()){
+                                                            String key = data.getKey();
+                                                            String email = data.child("email").getValue().toString();
+                                                            String uid = data.child("uid").getValue().toString();
+                                                            String username = data.child("username").getValue().toString();
+                                                            userDB.child(key).child("email").setValue(email);
+                                                            userDB.child(key).child("uid").setValue(uid);
+                                                            userDB.child(key).child("username").setValue(username);
+                                                            userDB.child(key).child("householdOwner").setValue(ownerEmail);
+                                                        }
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }
+                                    }else{
+                                        Log.e("TAG", "Invalid key");
+                                    }
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                        // delete old household
+                        householdDB.orderByChild("ownerEmail").equalTo(profile.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    for(DataSnapshot data : snapshot.getChildren()){
+                                        data.getRef().removeValue();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                }
+                // close popup
+                dialog.dismiss();
+            }
+        });
+
+        cancelJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
     // TODO: edit household member
@@ -116,4 +269,45 @@ public class UserProfile extends AppCompatActivity {
 
     }
 
+    private void showResetPwPopup(){
+        dialogBuilder = new AlertDialog.Builder((this));
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_resetpassword, null);
+        userEmail = contactPopupView.findViewById(R.id.email);
+        resetPassword = contactPopupView.findViewById(R.id.resetPassword_btn);
+        cancelReset = contactPopupView.findViewById(R.id.cancel_btn);
+
+        dialogBuilder.setView(contactPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        resetPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                resetPw(userEmail.getEditText().getText().toString());
+                dialog.dismiss();
+            }
+        });
+
+        cancelReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    // reset password function
+    private void resetPw(String email){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(this.toString(), "Email sent.");
+                            Toast.makeText(UserProfile.this, "Password reset email sent. Please check your inbox.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
 }

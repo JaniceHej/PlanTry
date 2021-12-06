@@ -1,21 +1,34 @@
 package com.example.plantry;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
-    Button callSignUp,btnLogin;
+    Button callSignUp,btnLogin, btnResetPw;
     TextInputLayout email, password;
     FirebaseAuth mAuth;
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextInputLayout userEmail;
+    private AppCompatButton cancel, resetPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +40,11 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.log_password);
         mAuth= FirebaseAuth.getInstance();
         btnLogin.setOnClickListener(view-> loginUser());
-    callSignUp.setOnClickListener(view -> startActivity(new Intent(Login.this,SignUp.class)));
+        btnResetPw = findViewById(R.id.resetPassword_btn);
+        btnResetPw.setOnClickListener(view ->{
+            showResetPwPopup();
+        });
+        callSignUp.setOnClickListener(view -> startActivity(new Intent(Login.this,SignUp.class)));
     }
     private void loginUser(){
         String lemail=email.getEditText().getText().toString();
@@ -51,22 +68,47 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    // TODO: "Forget password" page xml
-    // (for future ref) below code is from https://firebase.google.com/docs/auth/android/manage-users
-/*    private void resetPassword(){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        String emailAddress = "user@example.com";
+    // forget password button
+    private void showResetPwPopup(){
+        dialogBuilder = new AlertDialog.Builder((this));
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_resetpassword, null);
+        userEmail = contactPopupView.findViewById(R.id.email);
+        resetPassword = contactPopupView.findViewById(R.id.resetPassword_btn);
+        cancel = contactPopupView.findViewById(R.id.cancel_btn);
 
-        auth.sendPasswordResetEmail(emailAddress)
+        dialogBuilder.setView(contactPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        resetPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                resetPw(userEmail.getEditText().getText().toString());
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void resetPw(String email){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "Email sent.");
+                            Log.d(this.toString(), "Email sent.");
+                            Toast.makeText(Login.this, "Password reset email sent. Please check your inbox.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-    }*/
+    }
 
 }
 

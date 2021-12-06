@@ -15,7 +15,7 @@ public class Item extends PantryList{
 
     // no arg constructor
     public Item() {
-        super("", new ArrayList<String>(), new ArrayList<PantryList>(), new ArrayList<Item>(), new ArrayList<Item>());
+        super("", "", new ArrayList<String>(), new ArrayList<PantryList>(), new ArrayList<Item>(), new ArrayList<Item>());
         this.itemName = "";
         this.expiryDate = new Date();
         this.addedBy = "";
@@ -24,8 +24,8 @@ public class Item extends PantryList{
     }
 
     // overloaded constructor
-    public Item(String ownerUid, ArrayList<String> membersUid, ArrayList<PantryList> list, ArrayList<Item> shoppingList, ArrayList<Item> item, String itemName, Date expiryDate, String addedBy, Boolean isStaples, Boolean isOnSale) {
-        super(ownerUid, membersUid, list, shoppingList, item);
+    public Item(String ownerUid, String ownerEmail, ArrayList<String> membersUid, ArrayList<PantryList> list, ArrayList<Item> shoppingList, ArrayList<Item> item, String itemName, Date expiryDate, String addedBy, Boolean isStaples, Boolean isOnSale) {
+        super(ownerUid, ownerEmail, membersUid, list, shoppingList, item);
         this.itemName = itemName;
         this.expiryDate = expiryDate;
         this.addedBy = addedBy;

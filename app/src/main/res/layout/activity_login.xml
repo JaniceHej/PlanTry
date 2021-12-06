@@ -69,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:text="@string/forget_pw"
+                android:id="@+id/resetPassword_btn"
                 android:layout_gravity="end"
                 android:layout_margin="5dp"
                 />

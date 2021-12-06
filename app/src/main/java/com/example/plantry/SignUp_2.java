@@ -1,5 +1,6 @@
 package com.example.plantry;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -12,8 +13,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -25,6 +29,7 @@ public class SignUp_2 extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference householdDB = database.getReference().child("household");
+    private DatabaseReference userDB = database.getReference().child("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,7 @@ public class SignUp_2 extends AppCompatActivity {
             return false;
         }
         else if(!val.matches(noWhiteSpace)) {
-            regDispName.setError("White Spaces are not allowed");
+            regDispName.setError("Username must be 4-15 characters & white spaces are not allowed");
             return false;
         }
         else
@@ -103,10 +108,17 @@ public class SignUp_2 extends AppCompatActivity {
    //           householdDB.push().child("ownerUid").setValue(user.getUid());
                 Household newHousehold = new Household();
                 newHousehold.setOwnerUid(user.getUid());
+                newHousehold.setOwnerEmail(user.getEmail());
                 householdDB.push().setValue(newHousehold);
 
+                UserHelperClass newUser = new UserHelperClass(displayName, email, user.getUid(), email);
+                userDB.push().setValue(newUser);
+
                 Toast.makeText(SignUp_2.this, "Registration successful. Enjoy PlanTry!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(SignUp_2.this,WelcomeScreen.class));
+
+                Intent intent1 = new Intent(SignUp_2.this,WelcomeScreen.class);
+                intent1.putExtra("displayName", displayName);
+                startActivity(intent1);
             }else{
                 Toast.makeText(SignUp_2.this, "Registration Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }

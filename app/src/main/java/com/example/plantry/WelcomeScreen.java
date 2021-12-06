@@ -2,13 +2,18 @@ package com.example.plantry;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class WelcomeScreen extends AppCompatActivity{
     // variables
@@ -47,8 +52,14 @@ public class WelcomeScreen extends AppCompatActivity{
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String name = user.getDisplayName();
-            displayNameLabel.setText(name);
+
+            // Firebase auth update delay, thus using get intent to get display name temporarily for new signed up user.
+            if(name == null){
+                displayNameLabel.setText(getIntent().getStringExtra("displayName"));
+            }else{
+                displayNameLabel.setText(name);
+
+            }
         }
     }
-
 }

@@ -7,13 +7,13 @@ public class PantryList extends Household {
 
     // no arg constructor
     public PantryList() {
-        super("", new ArrayList<String>(), new ArrayList<PantryList>(), new ArrayList<Item>());
+        super("", "", new ArrayList<String>(), new ArrayList<PantryList>(), new ArrayList<Item>());
         this.item = new ArrayList<Item>();
     }
 
     // overloaded constructor
-    public PantryList(String ownerUid, ArrayList<String> membersUid, ArrayList<PantryList> list, ArrayList<Item> shoppingList, ArrayList<Item> item) {
-        super(ownerUid, membersUid, list, shoppingList);
+    public PantryList(String ownerUid, String ownerEmail, ArrayList<String> membersUid, ArrayList<PantryList> list, ArrayList<Item> shoppingList, ArrayList<Item> item) {
+        super(ownerUid, ownerEmail, membersUid, list, shoppingList);
         this.item = new ArrayList<Item>();
     }
 
