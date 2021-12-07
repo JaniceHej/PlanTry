@@ -71,12 +71,12 @@ public class Login extends AppCompatActivity {
     // forget password button
     private void showResetPwPopup(){
         dialogBuilder = new AlertDialog.Builder((this));
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_resetpassword, null);
-        userEmail = contactPopupView.findViewById(R.id.email);
-        resetPassword = contactPopupView.findViewById(R.id.resetPassword_btn);
-        cancel = contactPopupView.findViewById(R.id.cancel_btn);
+        final View resetPwPopupView = getLayoutInflater().inflate(R.layout.popup_resetpassword, null);
+        userEmail = resetPwPopupView.findViewById(R.id.email);
+        resetPassword = resetPwPopupView.findViewById(R.id.resetPassword_btn);
+        cancel = resetPwPopupView.findViewById(R.id.cancel_btn);
 
-        dialogBuilder.setView(contactPopupView);
+        dialogBuilder.setView(resetPwPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
 

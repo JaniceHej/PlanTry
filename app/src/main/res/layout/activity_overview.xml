@@ -25,14 +25,142 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:paddingLeft="30dp"
+                android:paddingTop="30dp"
                 android:paddingRight="30dp"
                 android:paddingBottom="10dp">
 
-                <androidx.recyclerview.widget.RecyclerView
+                <!-- Categories -->
+                <!-- Category 1-->
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/category_fruits"
+                    android:layout_width="150dp"
+                    android:layout_height="54dp"
+                    android:layout_marginRight="20dp"
+                    app:cardBackgroundColor="#B0D793"
+                    app:cardCornerRadius="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto"
+                        android:text="Fruits"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+                <!-- Category 2-->
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/category_drygoods"
+                    android:layout_width="150dp"
+                    android:layout_height="54dp"
+                    android:layout_toRightOf="@+id/category_fruits"
+                    app:cardBackgroundColor="#B0D793"
+                    app:cardCornerRadius="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto"
+                        android:text="Dry Goods"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+                <!-- Category 3-->
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/category_seafoods"
+                    android:layout_width="150dp"
+                    android:layout_height="54dp"
+                    android:layout_below="@+id/category_fruits"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    app:cardBackgroundColor="#B0D793"
+                    app:cardCornerRadius="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto"
+                        android:text="Seafoods"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+                <!-- Category 4-->
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/category_vegetables"
+                    android:layout_width="150dp"
+                    android:layout_height="54dp"
+                    android:layout_below="@+id/category_drygoods"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/category_seafoods"
+                    app:cardBackgroundColor="#B0D793"
+                    app:cardCornerRadius="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto"
+                        android:text="Vegetables"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+                <!-- Category 5-->
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/category_meats"
+                    android:layout_width="150dp"
+                    android:layout_height="54dp"
+                    android:layout_marginRight="20dp"
+                    app:cardBackgroundColor="#B0D793"
+                    android:layout_below="@+id/category_seafoods"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto"
+                        android:text="Meats"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+                <!-- Category 6-->
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/category_dairy"
+                    android:layout_width="150dp"
+                    android:layout_height="54dp"
+                    android:layout_below="@+id/category_vegetables"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/category_meats"
+                    app:cardBackgroundColor="#B0D793"
+                    app:cardCornerRadius="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto"
+                        android:text="Dairy"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+
+
+                <!-- TODO: Implement Recycler Grid View for expandable categories -->
+                <!--                <GridView
+                    android:id="@+id/categories_whole"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="30dp">
-                </androidx.recyclerview.widget.RecyclerView>
+                    android:paddingTop="30dp"
+                    android:scrollbars="none"></GridView>-->
             </RelativeLayout>
 
             <!-- Expiration -->

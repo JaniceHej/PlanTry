@@ -102,8 +102,6 @@ public class UserProfile extends AppCompatActivity {
                             if(dataSnapshot.child("email").getValue().equals(profile.getEmail())){
                                 String owner = dataSnapshot.child("householdOwner").getValue().toString();
                                 ownerLbl.setText(owner);
-                            }else{
-                                Toast.makeText(UserProfile.this, "Database error, please contact us", Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -128,11 +126,11 @@ public class UserProfile extends AppCompatActivity {
     // add new household member by displaying unique household code for other member to join a household
     private void addHousehold(){
         dialogBuilder = new AlertDialog.Builder((this));
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_addmember, null);
-        householdKey = contactPopupView.findViewById(R.id.householdKey);
-        understand = contactPopupView.findViewById(R.id.understand_btn);
+        final View addHouseholdPopupView = getLayoutInflater().inflate(R.layout.popup_addmember, null);
+        householdKey = addHouseholdPopupView.findViewById(R.id.householdKey);
+        understand = addHouseholdPopupView.findViewById(R.id.understand_btn);
 
-        dialogBuilder.setView(contactPopupView);
+        dialogBuilder.setView(addHouseholdPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
 
@@ -171,12 +169,12 @@ public class UserProfile extends AppCompatActivity {
     // join a household
     private void joinHousehold(){
         dialogBuilder = new AlertDialog.Builder((this));
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_joinhousehold, null);
-        householdKeyInput = contactPopupView.findViewById(R.id.household_key_input);
-        joinHouseholdBtn = contactPopupView.findViewById(R.id.join_household_btn);
-        cancelJoin = contactPopupView.findViewById(R.id.cancel_btn);
+        final View joinHouseholdPopupView = getLayoutInflater().inflate(R.layout.popup_joinhousehold, null);
+        householdKeyInput = joinHouseholdPopupView.findViewById(R.id.household_key_input);
+        joinHouseholdBtn = joinHouseholdPopupView.findViewById(R.id.join_household_btn);
+        cancelJoin = joinHouseholdPopupView.findViewById(R.id.cancel_btn);
 
-        dialogBuilder.setView(contactPopupView);
+        dialogBuilder.setView(joinHouseholdPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
 
@@ -271,12 +269,12 @@ public class UserProfile extends AppCompatActivity {
 
     private void showResetPwPopup(){
         dialogBuilder = new AlertDialog.Builder((this));
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_resetpassword, null);
-        userEmail = contactPopupView.findViewById(R.id.email);
-        resetPassword = contactPopupView.findViewById(R.id.resetPassword_btn);
-        cancelReset = contactPopupView.findViewById(R.id.cancel_btn);
+        final View resetPwPopupView = getLayoutInflater().inflate(R.layout.popup_resetpassword, null);
+        userEmail = resetPwPopupView.findViewById(R.id.email);
+        resetPassword = resetPwPopupView.findViewById(R.id.resetPassword_btn);
+        cancelReset = resetPwPopupView.findViewById(R.id.cancel_btn);
 
-        dialogBuilder.setView(contactPopupView);
+        dialogBuilder.setView(resetPwPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
 

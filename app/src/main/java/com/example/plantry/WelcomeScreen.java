@@ -33,6 +33,10 @@ public class WelcomeScreen extends AppCompatActivity{
             startActivity(intent);
         });
         managePantry = findViewById(R.id.manage_pantry);
+        managePantry.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), Overview.class);
+            startActivity(intent);
+        });
         manageHousehold = findViewById(R.id.manage_household);
         manageHousehold.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), UserProfile.class);

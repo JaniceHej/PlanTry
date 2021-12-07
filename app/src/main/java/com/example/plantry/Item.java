@@ -2,30 +2,31 @@ package com.example.plantry;
 
 import static java.lang.Boolean.FALSE;
 
-import java.lang.reflect.Array;
+import android.widget.DatePicker;
+import android.widget.EditText;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
-public class Item extends PantryList{
+public class Item{
     private String itemName;
-    private Date expiryDate;
+    private long expiryDate;
     private String addedBy;
     private Boolean isStaples;
     private Boolean isOnSale;
 
     // no arg constructor
     public Item() {
-        super("", "", new ArrayList<String>(), new ArrayList<PantryList>(), new ArrayList<Item>(), new ArrayList<Item>());
         this.itemName = "";
-        this.expiryDate = new Date();
+        this.expiryDate = -1;
         this.addedBy = "";
         this.isStaples = FALSE;
         this.isOnSale = FALSE;
     }
 
     // overloaded constructor
-    public Item(String ownerUid, String ownerEmail, ArrayList<String> membersUid, ArrayList<PantryList> list, ArrayList<Item> shoppingList, ArrayList<Item> item, String itemName, Date expiryDate, String addedBy, Boolean isStaples, Boolean isOnSale) {
-        super(ownerUid, ownerEmail, membersUid, list, shoppingList, item);
+    public Item(String itemName, long expiryDate, String addedBy, Boolean isStaples, Boolean isOnSale) {
         this.itemName = itemName;
         this.expiryDate = expiryDate;
         this.addedBy = addedBy;
@@ -34,6 +35,7 @@ public class Item extends PantryList{
     }
 
     // setter and getter
+
     public String getItemName() {
         return itemName;
     }
@@ -42,11 +44,11 @@ public class Item extends PantryList{
         this.itemName = itemName;
     }
 
-    public Date getExpiryDate() {
+    public long getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(long expiryDate) {
         this.expiryDate = expiryDate;
     }
 
