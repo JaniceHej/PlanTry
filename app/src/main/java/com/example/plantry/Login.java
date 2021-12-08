@@ -46,6 +46,11 @@ public class Login extends AppCompatActivity {
         });
         callSignUp.setOnClickListener(view -> startActivity(new Intent(Login.this,SignUp.class)));
     }
+
+    @Override
+    public void onBackPressed() {
+    }
+
     private void loginUser(){
         String lemail=email.getEditText().getText().toString();
         String lpassword=password.getEditText().getText().toString();

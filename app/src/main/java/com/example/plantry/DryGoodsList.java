@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
-public class DairyList extends AppCompatActivity {
+public class DryGoodsList extends AppCompatActivity {
     RecyclerView recyclerView;
     ItemsAdapter items;
     TextView categoryHeading, emptyListLbl;
@@ -52,7 +52,7 @@ public class DairyList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         categoryHeading = findViewById(R.id.category_name);
-        categoryHeading.setText("Dairy");
+        categoryHeading.setText("Dry Goods");
         emptyListLbl = findViewById(R.id.emptyList_lbl);
         addItem = findViewById(R.id.add_item);
         addItem.setOnClickListener(View ->{
@@ -81,36 +81,36 @@ public class DairyList extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if(snapshot.exists()){
                                             for(DataSnapshot data : snapshot.getChildren()){
-                                               String key = data.getKey();
-                                               householdDB.child(key).child("dairy").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                   @Override
-                                                   public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                                                       for (DataSnapshot data1 : snapshot1.getChildren()){
-                                                           String name = data1.child("itemName").getValue().toString();
-                                                           String addedBy = data1.child("addedBy").getValue().toString();
-                                                           long expiryDate = (long) data1.child("expiryDate").getValue();
-                                                           Boolean onSale = (Boolean) data1.child("onSale").getValue();
-                                                           Boolean staples = (Boolean) data1.child("staples").getValue();
+                                                String key = data.getKey();
+                                                householdDB.child(key).child("dryGoods").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                        for (DataSnapshot data1 : snapshot1.getChildren()){
+                                                            String name = data1.child("itemName").getValue().toString();
+                                                            String addedBy = data1.child("addedBy").getValue().toString();
+                                                            long expiryDate = (long) data1.child("expiryDate").getValue();
+                                                            Boolean onSale = (Boolean) data1.child("onSale").getValue();
+                                                            Boolean staples = (Boolean) data1.child("staples").getValue();
 
-                                                           Item singleItem = new Item(name, expiryDate, addedBy, staples, onSale);
+                                                            Item singleItem = new Item(name, expiryDate, addedBy, staples, onSale);
 
-                                                           itemsList.add(singleItem);
-                                                           items.notifyDataSetChanged();
-                                                       }
-                                                   }
+                                                            itemsList.add(singleItem);
+                                                            items.notifyDataSetChanged();
+                                                        }
+                                                    }
 
-                                                   @Override
-                                                   public void onCancelled(@NonNull DatabaseError error) {
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                                   }
-                                               });
+                                                    }
+                                                });
                                             }
                                         }
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-                                        Toast.makeText(DairyList.this, "Add item failed. Please try again", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(DryGoodsList.this, "Add item failed. Please try again", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
@@ -158,8 +158,8 @@ public class DairyList extends AppCompatActivity {
         // perform add items to DB
         addItemButton.setOnClickListener(new View.OnClickListener(){
 
-        // flag to solve double entry problem
-        Boolean isAdded = Boolean.FALSE;
+            // flag to solve double entry problem
+            Boolean isAdded = Boolean.FALSE;
 
             @Override
             public void onClick(View v){
@@ -192,12 +192,12 @@ public class DairyList extends AppCompatActivity {
                                                 if(snapshot.exists()){
                                                     for(DataSnapshot data : snapshot.getChildren()){
                                                         String key = data.getKey();
-                                                        Item dairyItem = new Item(productName, expiration, displayName, isStaples, false);
+                                                        Item dryGoodsItem = new Item(productName, expiration, displayName, isStaples, false);
 
                                                         if(!isAdded){
-                                                            householdDB.child(key).child("dairy").push().setValue(dairyItem);
-                                                        //    householdDB.child(key).child("dairy").child(productName).setValue(dairyItem);
-                                                            Toast.makeText(DairyList.this, productName + " added successfully", Toast.LENGTH_SHORT).show();
+                                                            householdDB.child(key).child("dryGoods").push().setValue(dryGoodsItem);
+                                                            //    householdDB.child(key).child("dryGoods").child(productName).setValue(dryGoodsItem);
+                                                            Toast.makeText(DryGoodsList.this, productName + " added successfully", Toast.LENGTH_SHORT).show();
                                                             isAdded = Boolean.TRUE;
                                                         }
                                                     }
@@ -206,7 +206,7 @@ public class DairyList extends AppCompatActivity {
 
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError error) {
-                                                Toast.makeText(DairyList.this, "Add item failed. Please try again", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(DryGoodsList.this, "Add item failed. Please try again", Toast.LENGTH_LONG).show();
                                             }
                                         });
                                     }
@@ -228,7 +228,7 @@ public class DairyList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), DairyList.class);
+                Intent intent = new Intent(getApplicationContext(), DryGoodsList.class);
                 startActivity(intent);
             }
         });

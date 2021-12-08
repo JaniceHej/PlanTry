@@ -35,7 +35,6 @@ public class Item{
     }
 
     // setter and getter
-
     public String getItemName() {
         return itemName;
     }
@@ -75,4 +74,41 @@ public class Item{
     public void setOnSale(Boolean onSale) {
         isOnSale = onSale;
     }
+
+    // Overriding equals and hash code
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int)expiryDate;
+        result = prime * result
+                + ((itemName == null) ? 0 : itemName.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Item other = (Item) obj;
+        if (itemName != other.itemName) {
+            return false;
+        }
+        if (itemName == null) {
+            if (other.itemName != null) {
+                return false;
+            }
+        } else if (!itemName.equals(other.itemName)) {
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -21,26 +21,26 @@ public class Overview extends AppCompatActivity {
         // TODO: CHANGE intent views
         fruits = findViewById(R.id.category_fruits);
         fruits.setOnClickListener(view ->{
-            Intent intent = new Intent(getApplicationContext(), Overview.class);
+            Intent intent = new Intent(getApplicationContext(), FruitsList.class);
             startActivity(intent);        });
         dryGoods = findViewById(R.id.category_drygoods);
         dryGoods.setOnClickListener(view ->{
-            Intent intent = new Intent(getApplicationContext(), Overview.class);
+            Intent intent = new Intent(getApplicationContext(), DryGoodsList.class);
             startActivity(intent);
         });
         seafoods = findViewById(R.id.category_seafoods);
         seafoods.setOnClickListener(view ->{
-            Intent intent = new Intent(getApplicationContext(), Overview.class);
+            Intent intent = new Intent(getApplicationContext(), SeafoodsList.class);
             startActivity(intent);
         });
         vegetables = findViewById(R.id.category_vegetables);
         vegetables.setOnClickListener(view ->{
-            Intent intent = new Intent(getApplicationContext(), Overview.class);
+            Intent intent = new Intent(getApplicationContext(), VegetablesList.class);
             startActivity(intent);
         });
         meats = findViewById(R.id.category_meats);
         meats.setOnClickListener(view ->{
-            Intent intent = new Intent(getApplicationContext(), Overview.class);
+            Intent intent = new Intent(getApplicationContext(), MeatsList.class);
             startActivity(intent);
         });
         dairy = findViewById(R.id.category_dairy);
@@ -49,9 +49,7 @@ public class Overview extends AppCompatActivity {
             startActivity(intent);
         });
 
-
-
-
+        // TODO: expandable categories (recycler view)
         // add new pantryList items by creating new PantryList instance
         //ArrayList<Categories> categories = new ArrayList<>();
         //categories.add(new Categories("","","Produce"));
@@ -59,5 +57,11 @@ public class Overview extends AppCompatActivity {
         categories.add("Produce");
         categories.add("Fruits");
         categories.add("Dairy");*/
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this.getApplicationContext(), WelcomeScreen.class);
+        startActivity(intent);
     }
 }

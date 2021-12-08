@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             }
         },SPLASH_SCREEN);
     }
-    public void onStart() {
 
+    public void onStart() {
         super.onStart();
     }
 }

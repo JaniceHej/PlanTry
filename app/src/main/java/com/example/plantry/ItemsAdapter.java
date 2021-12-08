@@ -1,5 +1,6 @@
 package com.example.plantry;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,38 +12,50 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 
-public class ItemsAdapter extends FirebaseRecyclerAdapter<Item, ItemsAdapter.ViewHolder>
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder>
 {
-    public ItemsAdapter(@NonNull FirebaseRecyclerOptions<Item> options){
-        super(options);
+    HashSet<Item> data;
+    Context context;
+    public ItemsAdapter(Context context, HashSet<Item> data){
+        this.data=data;
+        this.context=context;
     }
-
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public ItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
         View view=layoutInflater.inflate(R.layout.item_card,parent,false);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder,int position, @NonNull Item item)
+    public void onBindViewHolder(@NonNull ItemsAdapter.ViewHolder holder,int position)
     {
-        holder.name.setText(item.getItemName().toString());
-        holder.addedBy.setText(item.getAddedBy().toString());
+        Item[] itemArray = new Item[data.size()];
+        itemArray = data.toArray(itemArray);
+        holder.name.setText(itemArray[position].getItemName().toString());
+        holder.addedBy.setText("added by " + itemArray[position].getAddedBy().toString());
 
         // Calculate days to expired
         Calendar today = Calendar.getInstance();
-        long diff = today.getTimeInMillis() - item.getExpiryDate();
-        long days = diff / (24*60*60*1000);
+        long diff = today.getTimeInMillis() - itemArray[position].getExpiryDate();
+        long days = -diff / (24*60*60*1000);
         holder.expiryDate.setText(days + " days");
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
+    public class ViewHolder extends RecyclerView.ViewHolder
     {
         TextView name,addedBy,expiryDate;
         public ViewHolder(@NonNull View itemView)

@@ -31,6 +31,10 @@ public class SignUp extends AppCompatActivity {
         regToLoginBtn.setOnClickListener(view -> startActivity(new Intent(SignUp.this,Login.class)));
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     private void createUser(){
         String email=regEmail.getEditText().getText().toString();
         String password=regPassword.getEditText().getText().toString();

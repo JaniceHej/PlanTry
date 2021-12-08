@@ -91,6 +91,12 @@ public class UserProfile extends AppCompatActivity {
         displayUserData();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this.getApplicationContext(), WelcomeScreen.class);
+        startActivity(intent);
+    }
+
     private void displayUserData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {

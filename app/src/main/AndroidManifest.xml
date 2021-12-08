@@ -34,7 +34,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDg9zgZUg9IlzAcDtMbB_5_jq5Wzfx__1U" />
 
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -60,6 +59,21 @@
             android:exported="true" />
         <activity
             android:name=".Overview"
+            android:exported="true" />
+        <activity
+            android:name=".FruitsList"
+            android:exported="true" />
+        <activity
+            android:name=".DryGoodsList"
+            android:exported="true" />
+        <activity
+            android:name=".SeafoodsList"
+            android:exported="true" />
+        <activity
+            android:name=".VegetablesList"
+            android:exported="true" />
+        <activity
+            android:name=".MeatsList"
             android:exported="true" />
         <activity
             android:name=".DairyList"
