@@ -1,6 +1,7 @@
 package com.example.plantry;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,7 @@ public class Overview extends AppCompatActivity {
 //    private RecyclerView.Recycler mAdapter;
 //    private RecyclerView.LayoutManager mLayoutManager;
 
-    CardView fruits, dryGoods, seafoods, vegetables, meats, dairy;
+    CardView fruits, dryGoods, seafoods, vegetables, meats, dairy, store1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -46,6 +47,13 @@ public class Overview extends AppCompatActivity {
         dairy = findViewById(R.id.category_dairy);
         dairy.setOnClickListener(view ->{
             Intent intent = new Intent(getApplicationContext(), DairyList.class);
+            startActivity(intent);
+        });
+
+        store1 = findViewById(R.id.frame_store1);
+        store1.setOnClickListener(view->{
+            Uri uri = Uri.parse("https://www.costco.com/online-offers.html?&reloaded=true");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         });
 

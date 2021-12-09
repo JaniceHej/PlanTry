@@ -52,6 +52,10 @@ public class WelcomeScreen extends AppCompatActivity{
         getDisplayName();
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     private void getDisplayName(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
